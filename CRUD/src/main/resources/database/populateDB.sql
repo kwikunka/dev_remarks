@@ -1,0 +1,21 @@
+INSERT INTO `TODOlist`.`TODO` (`nameTODO`, `isCompleted`) VALUES ('Sleep', 0);
+INSERT INTO `TODOlist`.`TODO` (`nameTODO`, `isCompleted`) VALUES ('Work', 1);
+INSERT INTO `TODOlist`.`TODO` (`nameTODO`, `isCompleted`) VALUES ('Eat', 0);
+INSERT INTO `TODOlist`.`TODO` (`nameTODO`, `isCompleted`) VALUES ('Sleep', 0);
+INSERT INTO `TODOlist`.`TODO` (`nameTODO`, `isCompleted`) VALUES ('Work', 1);
+INSERT INTO `TODOlist`.`TODO` (`nameTODO`, `isCompleted`) VALUES ('Work', 1);
+INSERT INTO `TODOlist`.`TODO` (`nameTODO`, `isCompleted`) VALUES ('Work', 1);
+INSERT INTO `TODOlist`.`TODO` (`nameTODO`, `isCompleted`) VALUES ('Sleep', 0);
+INSERT INTO `TODOlist`.`TODO` (`nameTODO`, `isCompleted`) VALUES ('Eat', 0);
+INSERT INTO `TODOlist`.`TODO` (`nameTODO`, `isCompleted`) VALUES ('Work', 1);
+INSERT INTO `TODOlist`.`TODO` (`nameTODO`, `isCompleted`) VALUES ('Sleep', 0);
+INSERT INTO `TODOlist`.`TODO` (`nameTODO`, `isCompleted`) VALUES ('Work', 1);
+INSERT INTO `TODOlist`.`TODO` (`nameTODO`, `isCompleted`) VALUES ('Sleep', 0);
+INSERT INTO `TODOlist`.`TODO` (`nameTODO`, `isCompleted`) VALUES ('Eat', 0);
+INSERT INTO `TODOlist`.`TODO` (`nameTODO`, `isCompleted`) VALUES ('Work', 1);
+INSERT INTO `TODOlist`.`TODO` (`nameTODO`, `isCompleted`) VALUES ('Work', 1);
+INSERT INTO `TODOlist`.`TODO` (`nameTODO`, `isCompleted`) VALUES ('Work', 1);
+INSERT INTO `TODOlist`.`TODO` (`nameTODO`, `isCompleted`) VALUES ('Sleep', 1);
+INSERT INTO `TODOlist`.`TODO` (`nameTODO`, `isCompleted`) VALUES ('Eat', 1);
+INSERT INTO `TODOlist`.`TODO` (`nameTODO`, `isCompleted`) VALUES ('Work', 1);
+

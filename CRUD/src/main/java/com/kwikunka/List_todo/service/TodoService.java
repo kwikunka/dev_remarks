@@ -13,5 +13,8 @@ public interface TodoService {
     public void deleteTodo(int id);
     public Todo getTodoById(int id);
     public List<Todo> listTodo();
-    public List<Todo> listTodoFilter(boolean isComplete);
+    public List<Todo> listTodo(boolean isComplete);
+    public List<Todo> getAllpages(int begin, int num, byte filt);
+
+
 }

@@ -10,6 +10,21 @@ a:hover {
     text-decoration: none;
 }
 
+.paging {
+    width: 390px;
+    text-align: center;
+    margin: 10px;
+    font-weight: bold;
+}
+
+.paging span {
+    padding: 5px;
+}
+
+.paging a{
+    padding: 5px;
+    font-weight: normal;
+}
 
 .view {
     border-collapse: collapse;

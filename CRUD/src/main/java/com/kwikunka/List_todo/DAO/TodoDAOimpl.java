@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,7 +65,7 @@ public class TodoDAOimpl implements TodoDAO {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Todo> listTODOFilter(boolean isComplete) {
+    public List<Todo> listTODO(boolean isComplete) {
         Session session = this.sessionFactory.getCurrentSession();
         String hql = "from Todo where isCompleted = :complete";
         Query query = session.createQuery(hql);
@@ -75,5 +76,41 @@ public class TodoDAOimpl implements TodoDAO {
         }
 
         return todoList;
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Todo> getAllpages(int begin, int num, byte filt) {
+        List<Todo> todoList = null;
+        if (filt == 1) {
+            todoList = listTODO(true);
+        }
+        else if (filt == 0) {
+            todoList = listTODO(false);
+        }
+        else {
+            todoList = listTODO();
+        }
+
+        List<Todo> todoList_end = new ArrayList<Todo>();
+        if (todoList.size() <= begin) {
+            for(Todo todo: todoList) {
+                logger.info("Todo list: " + todo);
+            }
+            return null;
+        }
+        else if (todoList.size() < (begin + num) && begin < todoList.size()) {
+            for (int i = begin; i < todoList.size(); i++){
+                todoList_end.add(todoList.get(i));
+                logger.info("Todo list page: " + todoList.get(i));
+            }
+            return todoList_end;
+        }
+        else {
+            for (int i = begin; i < begin + num; i++){
+                todoList_end.add(todoList.get(i));
+                logger.info("Todo list page: " + todoList.get(i));
+            }
+            return todoList_end;
+        }
     }
 }

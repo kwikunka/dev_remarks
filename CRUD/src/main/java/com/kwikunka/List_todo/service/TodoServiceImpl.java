@@ -46,7 +46,11 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Transactional
-    public List<Todo> listTodoFilter(boolean isCompl) {
-        return this.todoDao.listTODOFilter(isCompl);
+    public List<Todo> listTodo(boolean isCompl) {
+        return this.todoDao.listTODO(isCompl);
     }
+
+    @Transactional
+    public List<Todo> getAllpages(int begin, int num, byte filt) { return this.todoDao.getAllpages(begin, num, filt); }
+
 }

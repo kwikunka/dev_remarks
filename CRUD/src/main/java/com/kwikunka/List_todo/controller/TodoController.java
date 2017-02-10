@@ -6,10 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by kwik on 06.02.2017.
@@ -17,15 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class TodoController {
     private TodoService todoService;
-    private static byte filterComplete = 2;
-
-    public static byte getFilterComplete() {
-        return filterComplete;
-    }
-
-    public static void setFilterComplete(byte filterComplete) {
-        TodoController.filterComplete = filterComplete;
-    }
+    int offset = 0;
+    int num = 5;
+    public static int count = 0;
 
     @Autowired(required = true)
     @Qualifier(value = "todoService")
@@ -35,30 +28,43 @@ public class TodoController {
     }
 
     @RequestMapping(value = "to_do", method = RequestMethod.GET)
-    public String listTodo(Model model) {
-
-        model.addAttribute("todo", new Todo());
-        if  (getFilterComplete() == 1) {
-            model.addAttribute("listTodo", this.todoService.listTodoFilter(true));
-            model.addAttribute("filter", "Completed");
+    public String listTodo(@RequestParam(value="numpage", required = false) Integer numpage, @RequestParam(value="filt", required = false) Byte filt, Model model) {
+        if (numpage == null) numpage = 1;
+        if (filt == null) filt = 2;
+        offset = numpage * num - num;
+        List<Todo> todoListFull = null;
+        List<Todo> todoList = this.todoService.getAllpages(offset, num, filt);
+        if (filt == 1) {
+            todoListFull = this.todoService.listTodo(true);
         }
-        else if (getFilterComplete() == 0) {
-            model.addAttribute("listTodo", this.todoService.listTodoFilter(false));
-            model.addAttribute("filter", "Not completed");
+        else if (filt == 0) {
+            todoListFull = this.todoService.listTodo(false);
         }
         else {
-            model.addAttribute("filter", "All   ");
-            model.addAttribute("listTodo", this.todoService.listTodo());
+            todoListFull = this.todoService.listTodo();
         }
+
+
+        if (todoListFull.size() < num) {
+            count = 1;
+        }
+        else if (todoListFull.size() > num && todoListFull.size() % num > 0 ) {
+            count = todoListFull.size() / num + 1;
+        }
+        else {
+            count = todoListFull.size() / num;
+        }
+
+        model.addAttribute("count", count);
+        model.addAttribute("todoList", todoList);
+        model.addAttribute("todoListFull", todoListFull);
+        model.addAttribute("numpage", numpage);
+        model.addAttribute("filt", filt);
+        model.addAttribute("todo", new Todo());
+
         return "to_do";
     }
 
-
-    @RequestMapping(value = "/filter/{id}")
-    public String listTodoFilter(Model model, @PathVariable("id") byte id) {
-        setFilterComplete(id);
-        return "redirect:/to_do";
-    }
 
     @RequestMapping(value = "/to_do/add", method = RequestMethod.POST)
     public String addTodo(@ModelAttribute("todo") Todo todo) {

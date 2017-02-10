@@ -20,13 +20,17 @@
 
 <h1>List ToDo</h1>
 
+
+<c:if test="${!empty todoList}">
+Filter:
 <select name="select" onchange="location.href=this.value">
-    <option>Filter: ${filter}</option>
-    <option value="/filter/2">All</option>
-    <option value="/filter/1">Completed</option>
-    <option value="/filter/0">Not completed</option>
+    <option <c:if test="${filt == 2}">selected</c:if> value="/to_do?filt=2">All</option>
+    <option <c:if test="${filt == 1}">selected</c:if> value="/to_do?filt=1">Completed</option>
+    <option <c:if test="${filt == 0}">selected</c:if> value="/to_do?filt=0">Not completed</option>
 </select>
-<c:if test="${!empty listTodo}">
+
+
+
     <table class="view">
         <tr>
             <th width="30">ID</th>
@@ -34,7 +38,7 @@
             <th width="60">Complete</th>
             <th width="60">Delete</th>
         </tr>
-        <c:forEach items="${listTodo}" var="todo">
+        <c:forEach items="${todoList}" var="todo">
             <tr>
                 <td>${todo.idTODO}</td>
                 <td><a href="/view/${todo.idTODO}">${todo.nameTODO}</a></td>
@@ -46,6 +50,23 @@
             </tr>
         </c:forEach>
     </table>
+
+
+
+<div class="paging">
+    <c:if test="${todoListFull.size() > -1}">
+        <c:forEach begin="1" end="${count}" var="val">
+            <c:if test="${numpage == val}">
+                <span>${val}</span>
+            </c:if>
+            <c:if test="${numpage != val}">
+                <c:url var="numpageURL" value="?numpage=${val}" />
+                <a href="/to_do${numpageURL}&filt=${filt}">${val}</a>
+            </c:if>
+
+        </c:forEach>
+    </c:if>
+</div>
 </c:if>
 
 

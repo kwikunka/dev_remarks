@@ -13,6 +13,7 @@ public interface TodoDAO {
     public void deleteTODO(int id);
     public Todo getTODObyId(int id);
     public List<Todo> listTODO();
-    public List<Todo> listTODOFilter(boolean isComplete);
+    public List<Todo> listTODO(boolean isComplete);
+    public List<Todo> getAllpages(int begin, int num, byte filt);
 
 }
